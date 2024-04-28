@@ -1,0 +1,18 @@
+{
+    "name": "clone-tabnews-2",
+    "version": "1.0.0",
+    "description": "Exercício do Curso.Dev do Caro Filipe Deschamps",
+    "main": "index.js",
+    "scripts": {
+      "dev": "next dev"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "MIT",
+    "dependencies": {
+      "next": "^13.1.6",
+      "react": "^18.2.0",
+      "react-dom": "^18.2.0"
+    }
+  }
+  
