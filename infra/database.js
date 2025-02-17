@@ -12,13 +12,11 @@ async function query(queryObject) {
 
   console.log(queryObject);
   try {
-    console.log("OPENED");
     const response = await client.query(queryObject);
     return response;
   } catch (err) {
-    console.log(err);
+    console.log(`@ ${queryObject}: ${err}`);
   } finally {
-    console.log("ENDED");
     client.end();
   }
 }
