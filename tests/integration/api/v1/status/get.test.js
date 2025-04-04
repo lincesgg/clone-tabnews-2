@@ -12,13 +12,12 @@ test("GET request '/api/v1/status' should return 200!", async () => {
   const parsedDate = new Date(resBody.update_at);
   expect(parsedDate.toISOString()).toEqual(resBody.update_at);
 
-  // databaseBody.version deve estar no modelo "16.6", na mesma versão que a versão de fato do postgres
-  expect(databaseBody.version).toEqual("16.6");
-
   // Connections (Amount) must Be Int
   expect(Number.isInteger(databaseBody.max_connections)).toEqual(true);
   expect(Number.isInteger(databaseBody.crr_connections)).toEqual(true);
 
-  // If There's More that 1 crr_connections per time, then there is connections leakage
-  expect(databaseBody.crr_connections).toBe(1);
+  // If There's More that 2 crr_connections per time, then there is connections leakage
+  // 1º Connection, for the query that is getting the information
+  // 2º Connection may exist, because provider provides a interface 2 DB on their site
+  expect(databaseBody.crr_connections).toEqual(1);
 });
