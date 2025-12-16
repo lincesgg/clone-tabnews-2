@@ -1,32 +1,32 @@
 {
-  "name": "clone-tabnews-2",
-  "version": "1.0.0",
-  "description": "Exercício do Curso.Dev do Caro Filipe Deschamps",
-  "main": "index.js",
-  "scripts": {
-    "dev": "next dev",
-    "lint:check": "prettier --check .",
-    "lint:fix": "prettier --write .",
-    "test": "jest",
-    "test:watch": "jest --watchAll",
-    "services:up": "wsl -e docker compose -f infra/compose.yaml up -d --force-recreate",
-    "services:stop": "wsl -e docker compose -f infra/compose.yaml stop",
-    "services:down": "wsl -e docker compose -f infra/compose.yaml down"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "MIT",
-  "dependencies": {
-    "next": "^13.1.6",
-    "pg": "^8.11.3",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0"
-  },
-  "devDependencies": {
-    "jest": "^29.6.2",
-    "prettier": "^3.4.2"
-  },
-  "imports": {
-    "#infra*": "./infra*"
-  }
+	"name": "clone-tabnews-2",
+	"version": "1.0.0",
+	"description": "Exercício do Curso.Dev do Caro Filipe Deschamps",
+	"main": "index.js",
+	"scripts": {
+		"dev": "next dev",
+		"lint:check": "prettier --check .",
+		"lint:fix": "prettier --write .",
+		"test": "jest",
+		"test:watch": "jest --watchAll",
+		"services:up": "wsl -e docker compose -f infra/compose.yaml up -d --force-recreate",
+		"services:stop": "wsl -e docker compose -f infra/compose.yaml stop",
+		"services:down": "wsl -e docker compose -f infra/compose.yaml down"
+	},
+	"keywords": [],
+	"author": "",
+	"license": "MIT",
+	"dependencies": {
+		"next": "^13.1.6",
+		"pg": "^8.11.3",
+		"react": "^18.2.0",
+		"react-dom": "^18.2.0"
+	},
+	"devDependencies": {
+		"jest": "^29.6.2",
+		"prettier": "^3.4.2"
+	},
+	"imports": {
+		"#infra*": "./infra*"
+	}
 }
