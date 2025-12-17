@@ -1,23 +1,27 @@
-import migrationsRunner from "node-pg-migrate";
-import path from "node:path";
+import migrationRunner from "node-pg-migrate"
+import path from "node:path"
 
 export default async function migrations(req, res) {
-	// Init Config (Proper for 'GET')
-	const migrationConfig = {
+	const runMigrationConfig = {
 		databaseUrl: process.env.DATABASE_URL,
-		migrationsTable: "pgmigrations",
 		dir: path.join("infra", "migrations"),
-
+		checkOrder: true,
 		direction: "up",
 		dryRun: true,
-	};
-
-	if (req.method == "POST") {
-		migrationConfig.dryRun = false;
-	} else if (req.method != "GET") {
-		res.status(405).end();
+		migrationsTable: "pgmigrations",
+		verbose: true
 	}
 
-	const migrationsAvailable = await migrationsRunner(migrationConfig);
-	res.status(200).send(migrationsAvailable);
+	if (req.method == "POST") {
+		runMigrationConfig.dryRun = false
+	}
+	else if (req.method != "GET") {
+		res.status(405).end()
+	}
+
+	const migrationRes = await migrationRunner(runMigrationConfig)
+	res.status(200)
+	res.send(migrationRes)
+	res.end()
+
 }
