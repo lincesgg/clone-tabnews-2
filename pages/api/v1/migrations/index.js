@@ -23,5 +23,4 @@ export default async function migrations(req, res) {
 	res.status(200)
 	res.send(migrationRes)
 	res.end()
-
 }
