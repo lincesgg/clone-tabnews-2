@@ -1,13 +1,11 @@
-const nextJest = require("next/jest.js");
-const dotenv = require("dotenv");
+const nextJest = require("next/jest.js")
 
-if (process.env.NODE_ENV == "test") {
-	dotenv.config({ path: ".env.development" });
-}
+// Configurations Relative Next-Jest Integrations
+const createJestConfig = nextJest({})
 
-const createJestConfig = nextJest({});
+// Configurations Relative Jest-Only
 const jestConfig = createJestConfig({
-	moduleDirectories: ["node_modules", "<rootDir>"],
-});
+	modulePaths: ["node_modules", "<rootDir>"]
+})
 
-module.exports = jestConfig;
+module.exports = jestConfig
