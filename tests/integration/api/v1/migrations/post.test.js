@@ -9,10 +9,10 @@ async function resetDB() {
 }
 
 test("POST '/api/v1/migrations'", async () => {
-	const getRes = await fetch(`${host}/api/v1/migrations`)
+	const getRes = await fetch(`${process.env.APP_URL}/api/v1/migrations`)
 	const getMigrations = await getRes.json()
 
-	const postRes1 = await fetch(`${host}/api/v1/migrations`, {
+	const postRes1 = await fetch(`${process.env.APP_URL}/api/v1/migrations`, {
 		method: "POST"
 	})
 	const migExecuted1 = await postRes1.json()
@@ -21,7 +21,7 @@ test("POST '/api/v1/migrations'", async () => {
 	// Array Response?
 	expect(Array.isArray(migExecuted1)).toBe(true)
 
-	const postRes2 = await fetch(`${host}/api/v1/migrations`)
+	const postRes2 = await fetch(`${process.env.APP_URL}/api/v1/migrations`)
 	// status?
 	expect(postRes2.status).toBe(200)
 	const migExecuted2 = await postRes2.json()

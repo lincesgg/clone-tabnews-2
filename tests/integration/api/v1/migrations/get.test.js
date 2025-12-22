@@ -1,7 +1,5 @@
 import database from "infra/database.js"
 
-const host = "http://localhost:3000"
-
 beforeAll(resetDB)
 
 async function resetDB() {
@@ -9,7 +7,7 @@ async function resetDB() {
 }
 
 test("GET '/api/v1/migrations'", async () => {
-	const res = await fetch(`${host}/api/v1/migrations`)
+	const res = await fetch(`${process.env.APP_URL}/api/v1/migrations`)
 	expect(res.status).toBe(200)
 
 	const body = await res.json()
