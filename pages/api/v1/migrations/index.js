@@ -3,17 +3,38 @@ import path from "node:path"
 import database from "infra/database.js"
 
 export default async function migrations(req, res) {
-	const dbClient = await database.databaseClient()
-
-	const defaultMigConfig = {
-		dbClient,
-		dir: path.join("infra", "migrations"),
-		checkOrder: true,
-		direction: "up",
-		dryRun: true,
-		migrationsTable: "pgmigrations",
-		verbose: true
+	if (sanitizeRequest(req, res) == 1) {
+		return
 	}
+
+	let dbClient;
+	try {
+		dbClient = await database.databaseClient()
+		await respondRequest(dbClient, req, res)
+	}
+	catch (err) {
+		console.log(`ERR [api/v1/migrations]: ${err}`)
+		throw err
+	}
+	finally {
+		// If not close, migrationRunner Lock is not Removed
+		if (dbClient) dbClient.end()
+	}
+
+}
+
+function sanitizeRequest(req, res) {
+	if (!(["GET", "POST"].includes(req.method))) {
+		res.status(405).json({
+			error: `Method "${req.method}" is not allowed.`
+		})
+		return 1
+	}
+	return 0
+}
+
+async function respondRequest(dbClient, req, res) {
+	const defaultMigConfig = getMigrationsRunnerConfig(dbClient)
 
 	switch (req.method) {
 		case "GET":
@@ -33,13 +54,18 @@ export default async function migrations(req, res) {
 				.status(migrationsDone.length == 0 ? 200 : 201)
 				.json(migrationsDone)
 			break
-
-		default:
-			res.status(405).end()
-			break
-
 	}
 
-	// If not close, migrationRunner Lock is not Removed
-	// dbClient.end()
+}
+
+function getMigrationsRunnerConfig(dbClient) {
+	return {
+		dbClient,
+		dir: path.join("infra", "migrations"),
+		checkOrder: true,
+		direction: "up",
+		dryRun: true,
+		migrationsTable: "pgmigrations",
+		verbose: true,
+	}
 }
