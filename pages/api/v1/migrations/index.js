@@ -21,6 +21,8 @@ export default async function migrations(req, res) {
 			res
 				.status(200)
 				.json(pendingMigrations)
+			dbClient.end()
+
 			break
 
 		case "POST":
@@ -32,6 +34,8 @@ export default async function migrations(req, res) {
 			res
 				.status(migrationsDone.length == 0 ? 200 : 201)
 				.json(migrationsDone)
+			dbClient.end()
+
 			break
 
 		default:
