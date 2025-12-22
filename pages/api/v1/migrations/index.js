@@ -41,5 +41,5 @@ export default async function migrations(req, res) {
 	}
 
 	// If not close, migrationRunner Lock is not Removed
-	dbClient.end()
+	// dbClient.end()
 }
