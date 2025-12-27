@@ -1,7 +1,5 @@
 import database from "infra/database.js"
 
-const host = "http://localhost:3000"
-
 beforeAll(resetDB)
 
 async function resetDB() {
