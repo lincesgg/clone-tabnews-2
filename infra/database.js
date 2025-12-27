@@ -47,6 +47,6 @@ function getSSLValues() {
 		};
 	}
 
-	const inDev = process.env.NODE_ENV == "development";
-	return inDev ? false : true;
+	const inProd = process.env.NODE_ENV == "production";
+	return inProd ? true : false;
 }

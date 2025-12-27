@@ -1,6 +1,3 @@
-if (process.env.NODE_ENV === "development") {
-	const { loadEnvConfig } = require("@next/env")
+// import orchestrator from "infra/orchestrator.js"
 
-	// load from "./" with dev=true
-	loadEnvConfig("./", true)
-}
+// beforeAll(orchestrator.waitForServices)
