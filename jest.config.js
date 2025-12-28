@@ -13,7 +13,7 @@ dotenv.config({ path: "./.env.development" })
 // Configurations Relative Jest-Only
 const jestConfig = createJestConfig({
 	modulePaths: ["node_modules", "<rootDir>"],
-	// setupFilesAfterEnv: ["./jest.setup.js"],
+	setupFilesAfterEnv: ["./jest.setup.js"],
 	testTimeout: 60 * 1000
 })
 

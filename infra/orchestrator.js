@@ -11,17 +11,20 @@ const retryConfig = {
 //  ---
 async function waitForServices() {
 	await waitForHttpServer()
+
+	async function waitForHttpServer() {
+		await retry(checkStatusAvailability, retryConfig)
+
+		async function checkStatusAvailability() {
+			const res = await fetch(`${process.env.APP_URL}/api/v1/status`)
+
+			if (!res.ok) {
+				throw Error(`HTTP ERROR, STATUS ${res.status}`)
+			}
+		}
+	}
 }
 
 export default {
 	waitForServices
-}
-
-async function waitForHttpServer() {
-	await retry(checkStatusAvailability, retryConfig)
-
-	async function checkStatusAvailability() {
-		const res = await fetch(`${process.env.APP_URL}/api/v1/status`)
-		await res.json()
-	}
 }
