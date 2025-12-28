@@ -8,11 +8,12 @@ async function waitForDB() {
 	await retry(
 		isDatabaseAvailable,
 		{
-			retries: 150,
-			minTimeout: 200,
-			maxTimeout: 2500,
-			factor: 1.05,
-			onRetry: (err) => {
+			retries: 100, // Arbitrary
+			minTimeout: 200,// Arbitrary
+			maxTimeout: 2500, // Arbitrary
+			factor: 1.05, // Arbitrary
+
+			onRetry: () => {
 				if (firstIt) {
 					process.stdout.write("\n🔴 Database Unavailable, ⌛ Waiting for Availability ")
 					firstIt = false
