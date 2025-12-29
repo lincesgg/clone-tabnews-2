@@ -18,10 +18,12 @@ async function query(queryObject) {
 	}
 }
 
-export default {
+const database = {
 	query,
 	databaseClient,
 };
+
+export default database;
 
 // Utils ---
 async function databaseClient(optionsUpdates = {}) {

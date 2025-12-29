@@ -5,6 +5,7 @@ import pluginJest from "eslint-plugin-jest";
 import pluginReact from "eslint-plugin-react";
 import json from "@eslint/json";
 import eslintConfigPrettier from "eslint-config-prettier/flat";
+import nextPlugin from "eslint-config-next";
 
 export default defineConfig([
 	globalIgnores([".*/", "**/package-lock.json"], "Hide file Prefixed by ."),
@@ -18,9 +19,6 @@ export default defineConfig([
 				...globals.node,
 				...pluginJest.environments.globals.globals,
 			},
-		},
-		rules: {
-			"no-unused-vars": "warn",
 		},
 	},
 	{
@@ -36,4 +34,5 @@ export default defineConfig([
 		extends: ["json/recommended"],
 	},
 	eslintConfigPrettier,
+	nextPlugin,
 ]);
