@@ -1,3 +1,3 @@
-import orchestrator from "infra/orchestrator.js"
+import orchestrator from "infra/orchestrator.js";
 
-beforeAll(orchestrator.waitForServices)
+beforeAll(orchestrator.waitForServices);
