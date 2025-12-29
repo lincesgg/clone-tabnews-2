@@ -24,7 +24,7 @@ async function waitForDB() {
 	console.log("\n🟢 Database is Available for Connections!");
 }
 
-async function isDatabaseAvailable(bail) {
+async function isDatabaseAvailable() {
 	const availability = new Promise((res, rej) => {
 		exec(
 			"docker exec postgres-dev pg_isready -h localhost",
