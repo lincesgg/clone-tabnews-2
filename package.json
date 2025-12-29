@@ -3,7 +3,6 @@
 	"version": "1.0.0",
 	"description": "Exercício do Curso.Dev do Caro Filipe Deschamps",
 	"main": "index.js",
-	"type": "module",
 	"scripts": {
 		"dev": "npm run services:up && npm run wait-for-db && npm run migrate:up && next dev",
 		"lint:prettier:check": "prettier --check .",
