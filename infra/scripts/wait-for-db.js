@@ -1,41 +1,44 @@
 const { exec } = require("node:child_process")
+const retry = require("async-retry")
 
-waitForDatabaseAvalaibility()
+waitForDB()
 
-async function waitForDatabaseAvalaibility() {
+async function waitForDB() {
+	let firstIt = true
+	await retry(
+		isDatabaseAvailable,
+		{
+			retries: 100, // Arbitrary
+			minTimeout: 200,// Arbitrary
+			maxTimeout: 2500, // Arbitrary
+			factor: 1.05, // Arbitrary
 
-	let isDbAvailable = await isDatabaseAvailable()
-
-	if (!isDbAvailable) {
-		process.stdout.write("\n🔴 Database Unavailable, ⌛ Waiting for Availability ")
-	}
-
-	while (!isDbAvailable) {
-		isDbAvailable = await isDatabaseAvailable()
-		process.stdout.write(".")
-		await sleep(150)
-	}
-
+			onRetry: () => {
+				if (firstIt) {
+					process.stdout.write("\n🔴 Database Unavailable, ⌛ Waiting for Availability ")
+					firstIt = false
+				}
+				process.stdout.write(".")
+			}
+		}
+	)
 	console.log("\n🟢 Database is Available for Connections!")
-	return 0
+
 }
 
-function isDatabaseAvailable() {
-	return new Promise((res, rej) => {
-		exec("docker exec postgres-dev pg_isready -h localhost",
-			(err, stdout) => {
-				ret = stdout.includes("accepting connections")
+async function isDatabaseAvailable(bail) {
+	const availability = new Promise((res, rej) => {
+		exec("docker exec postgres-dev pg_isready -h localhost", (err, stdout) => {
+			const ret = stdout.includes("accepting connections")
+
+			if (ret) {
 				res(ret)
-			})
+			}
+			else {
+				rej("DB Unavailable")
+			}
+		})
 	})
+
+	await availability
 }
-
-function sleep(ms) {
-	return new Promise((res, rej) => {
-		setTimeout(() => {
-			res()
-		}, ms)
-	})
-}
-
-
