@@ -4,8 +4,7 @@ import globals from "globals";
 import pluginJest from "eslint-plugin-jest";
 import pluginReact from "eslint-plugin-react";
 import json from "@eslint/json";
-
-// console.log(globals.browser);
+import eslintConfigPrettier from "eslint-config-prettier/flat";
 
 export default defineConfig([
 	globalIgnores([".*/", "**/package-lock.json"], "Hide file Prefixed by ."),
@@ -36,4 +35,5 @@ export default defineConfig([
 		language: "json/json",
 		extends: ["json/recommended"],
 	},
+	eslintConfigPrettier,
 ]);
