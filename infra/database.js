@@ -1,10 +1,9 @@
 import { Client } from "pg";
 
 async function query(queryObject) {
-
-	let client
+	let client;
 	try {
-		client = await databaseClient()
+		client = await databaseClient();
 		const response = await client.query(queryObject);
 		return response;
 	} catch (err) {
@@ -33,11 +32,11 @@ async function databaseClient(optionsUpdates = {}) {
 		user: process.env.POSTGRES_USER,
 		password: process.env.POSTGRES_PASSWORD,
 		ssl: getSSLValues(),
-		...optionsUpdates
+		...optionsUpdates,
 	});
 
 	await client.connect();
-	return client
+	return client;
 }
 
 function getSSLValues() {
